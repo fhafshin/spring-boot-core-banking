@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="sampleAdder" class="ir.setad.banking.aop.SampleAdder"/>
+    <bean id="doBeforeAspect" class="ir.setad.banking.aop.AdderBeforeAspect"/>
+    <bean id="doAfterAspect" class="ir.setad.banking.aop.AdderAfterAspect"/>
+    <bean id="doAfterReturnAspect" class="ir.setad.banking.aop.AdderAfterReturnAspect"/>
+    <bean id="doAfterThrowingAspect" class="ir.setad.banking.aop.AdderAfterThrowingAspect"/>
+    <bean id="doAroundAspect" class="ir.setad.banking.aop.AdderAroundAspect"/>
+
+    <aop:config>
+
+        <aop:aspect id="aspects" ref="doAroundAspect">
+            <aop:pointcut id="pointCutAround" expression="execution(* ir.setad.banking.aop.SampleAdder+.*(..))"/>
+            <aop:around method="aroundAdvise" pointcut-ref="pointCutAround"/>
+        </aop:aspect>
+        <aop:aspect id="aspects" ref="doBeforeAspect">
+
+            <aop:pointcut id="pointCutBefore" expression="execution(* ir.setad.banking.aop.SampleAdder+.*(..))"/>
+            <aop:before method="beforeAdvise" pointcut-ref="pointCutBefore"/>
+        </aop:aspect>
+
+        <aop:aspect id="aspects" ref="doAfterAspect">
+            <aop:pointcut id="pointCutAfter" expression="execution(* ir.setad.banking.aop.SampleAdder+.*(..))"/>
+            <aop:after method="afterAdvuse" pointcut-ref="pointCutAfter"/>
+        </aop:aspect>
+
+        <aop:aspect id="aspects" ref="doAfterReturnAspect">
+            <aop:pointcut id="pointCutAfterReturn" expression="execution(* ir.setad.banking.aop.SampleAdder+.*(..))"/>
+            <aop:after-returning method="afterReturn" pointcut-ref="pointCutAfterReturn" returning="afterReturnValue"/>
+
+        </aop:aspect>
+        <aop:aspect id="aspects" ref="doAfterThrowingAspect">
+            <aop:pointcut id="pointCutThrowing" expression="execution(* ir.setad.banking.aop.SampleAdder+.*(..))"/>
+            <aop:after-throwing method="afterThrowing" throwing="exception" pointcut-ref="pointCutThrowing"/>
+        </aop:aspect>
+
+
+
+    </aop:config>
+</beans>
