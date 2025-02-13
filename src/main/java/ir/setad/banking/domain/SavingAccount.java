@@ -5,13 +5,15 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-@SequenceGenerator(name = "sequence-generator",initialValue = 1,sequenceName = "savingAccount_sequence")
+@SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "savingAccount_sequence")
 @Entity
 @Table(name = "m_saving_account")
 
 public class SavingAccount extends AbstractBaseEntityCustom implements Serializable {
-    @Column(name = "account_no",length = 20,nullable = false,unique = true)
+    @Column(name = "account_no", length = 20, nullable = false, unique = true)
     private String accountNumber;
     @Column(name = "external_id")
     private String externalId;
@@ -19,11 +21,11 @@ public class SavingAccount extends AbstractBaseEntityCustom implements Serializa
     @Enumerated(EnumType.STRING)
     private SavingAccountStatusType status;
 
-    @Column(name = "min_required_opening_balance",scale = 6,precision = 19,nullable = true)
+    @Column(name = "min_required_opening_balance", scale = 6, precision = 19, nullable = true)
     private BigDecimal minRequiredOpeningBalance;
 
 
-    @Column(name = "nominal_annual_interest_rate",scale = 6,precision = 19,nullable = false)
+    @Column(name = "nominal_annual_interest_rate", scale = 6, precision = 19, nullable = false)
     private BigDecimal nominalAnnualInterestRate;
     @Column(name = "account_balance_derived")
     private BigDecimal accountBalance;
@@ -32,6 +34,10 @@ public class SavingAccount extends AbstractBaseEntityCustom implements Serializa
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "client_id")
     private Client client;
+
+    @OneToMany(mappedBy = "savingAccount", fetch = FetchType.LAZY)
+    private List<SavingAccountTransaction> transactions = new ArrayList<>();
+
 
     public String getAccountNumber() {
         return accountNumber;

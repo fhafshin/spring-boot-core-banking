@@ -10,7 +10,7 @@
     <Loggers>
 
         <!-- Root logger referring to console appender -->
-        <Root level="info" additivity="false">
+        <Root level="${logging.level.root}" additivity="false">
             <AppenderRef ref="console" />
         </Root>
     </Loggers>
