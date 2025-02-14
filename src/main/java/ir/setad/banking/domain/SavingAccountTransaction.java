@@ -29,6 +29,9 @@ public class SavingAccountTransaction extends AbstractBaseEntityCustom implement
     @JoinColumn(name = "saving_account_id")
     private SavingAccount savingAccount;
 
+
+
+
     public SavingAccountTransactionType getTransactionType() {
         return transactionType;
     }

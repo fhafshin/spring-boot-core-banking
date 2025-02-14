@@ -15,4 +15,27 @@ public class SavingAccountTransactionDTO implements Serializable {
     private BigDecimal amount;
 
 
+    public SavingAccountTransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(SavingAccountTransactionType transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public Date getDateOf() {
+        return dateOf;
+    }
+
+    public void setDateOf(Date dateOf) {
+        this.dateOf = dateOf;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 }

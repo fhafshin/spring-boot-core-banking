@@ -5,6 +5,7 @@ import ir.setad.banking.service.SavingAccountTransactionService;
 import ir.setad.banking.service.dto.SavingAccountTransactionDTO;
 import ir.setad.banking.utils.HeaderUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,10 +41,10 @@ public class SavingAccountTransactionResource {
 
     @PostMapping("/saving-account-transactions/{savingsId}/deposit")
 
-    public ResponseEntity<SavingAccountTransactionDTO> deposit(@PathVariable Long savingId,@RequestBody SavingAccountTransactionDTO savingAccountTransactionDTO) throws URISyntaxException {
+    public ResponseEntity<SavingAccountTransactionDTO> deposit(@PathVariable Long savingsId,@RequestBody SavingAccountTransactionDTO savingAccountTransactionDTO) throws URISyntaxException {
 
 
-        SavingAccountTransactionDTO result= savingAccountTransactionService.handleDeposit(savingId,savingAccountTransactionDTO);
+        SavingAccountTransactionDTO result= savingAccountTransactionService.handleDeposit(savingsId,savingAccountTransactionDTO);
 
         return ResponseEntity
                 .created(new URI("/api/saving-account-transactions"+result))
@@ -51,4 +52,9 @@ public class SavingAccountTransactionResource {
                 .body(result);
 
     }
+
+
 }
+
+
+

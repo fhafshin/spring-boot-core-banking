@@ -1,11 +1,10 @@
 package ir.setad.banking.domain;
 
 import jakarta.persistence.*;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "client_sequence")
 @Entity
@@ -31,8 +30,19 @@ public class Client extends AbstractBaseEntityCustom implements Serializable {
     private Office office;
 
     @OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
-    private Set<SavingAccount> savingAccount=new HashSet<>();
+    private List<SavingAccount> savingAccount=new ArrayList<>();
 
+
+
+
+
+    public List<SavingAccount> getSavingAccount() {
+        return savingAccount;
+    }
+
+    public void setSavingAccount(List<SavingAccount> savingAccount) {
+        this.savingAccount = savingAccount;
+    }
 
     public String getFirstName() {
         return firstName;

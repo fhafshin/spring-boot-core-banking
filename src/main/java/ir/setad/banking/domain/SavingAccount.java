@@ -11,7 +11,6 @@ import java.util.List;
 @SequenceGenerator(name = "sequence-generator", initialValue = 1, sequenceName = "savingAccount_sequence")
 @Entity
 @Table(name = "m_saving_account")
-
 public class SavingAccount extends AbstractBaseEntityCustom implements Serializable {
     @Column(name = "account_no", length = 20, nullable = false, unique = true)
     private String accountNumber;
@@ -31,13 +30,25 @@ public class SavingAccount extends AbstractBaseEntityCustom implements Serializa
     private BigDecimal accountBalance;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "client_id")
-    private Client client;
+
 
     @OneToMany(mappedBy = "savingAccount", fetch = FetchType.LAZY)
     private List<SavingAccountTransaction> transactions = new ArrayList<>();
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+
+
+    public List<SavingAccountTransaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<SavingAccountTransaction> transactions) {
+        this.transactions = transactions;
+    }
 
     public String getAccountNumber() {
         return accountNumber;
