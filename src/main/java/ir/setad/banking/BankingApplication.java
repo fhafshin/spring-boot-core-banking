@@ -5,6 +5,7 @@ import ir.setad.banking.config.AppConstants;
 import ir.setad.banking.domain.Account;
 import ir.setad.banking.domain.User;
 import ir.setad.banking.repository.AccountRepository;
+import ir.setad.banking.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,14 +24,15 @@ public class BankingApplication implements CommandLineRunner {
 
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final UserRepository userRepository;
 
     private final Environment env;
 
-    public BankingApplication(SampleAdder sampleAdder, AccountRepository accountRepository, PasswordEncoder passwordEncoder, Environment env) {
+    public BankingApplication(SampleAdder sampleAdder, AccountRepository accountRepository, PasswordEncoder passwordEncoder, UserRepository userRepository, Environment env) {
         this.sampleAdder = sampleAdder;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
         this.env = env;
     }
 
@@ -51,10 +53,10 @@ public class BankingApplication implements CommandLineRunner {
         accountRepository.save(new Account(new BigDecimal(5000), "ali"));
 
         User user = new User();
-        user.setUsername("user");
+        user.setUsername("user1");
         user.setRole("USER");
         user.setPassword(passwordEncoder.encode("123456"));
-
+        userRepository.save(user);
 
     }
 }

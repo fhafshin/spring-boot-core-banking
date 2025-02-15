@@ -2,12 +2,14 @@ package ir.setad.banking.domain;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-public class User {
+@Table(name = "users")
+public class User extends AbstractBaseEntityCustom implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(nullable = false,updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false,unique = true)
