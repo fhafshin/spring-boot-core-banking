@@ -18,7 +18,7 @@ import java.util.Collections;
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
     public LoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
-       setAuthenticationManager(authManager);
+       this.setAuthenticationManager(authManager);
     }
 
     @Override
@@ -36,5 +36,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         AuthenticationService.addToken(response,authResult.getName());
+
+       // super.successfulAuthentication(request,response,chain,authResult);
     }
 }
